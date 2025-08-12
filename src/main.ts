@@ -11,10 +11,9 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
 
   app.enableCors({
-    origin: configService.get('CORS_ORIGIN') || 'http://localhost:8080',
+    origin: configService.get('CORS_ORIGIN'),
     methods:
-      configService.get('CORS_METHODS').split(',') ||
-      'GET,POST,PUT,DELETE,PATCH,OPTIONS',
+      configService.get('CORS_METHODS').split(','),
     credentials: true,
   });
 
@@ -28,9 +27,9 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, swaggerConfig);
 
-  const swaggerPath = configService.get('SWAGGER_PATH') || 'api/docs';
+  const swaggerPath = configService.get('SWAGGER_PATH');
   SwaggerModule.setup(swaggerPath, app, document);
 
-  await app.listen(configService.get('PORT') || 3000);
+  await app.listen(configService.get('PORT'));
 }
 bootstrap();

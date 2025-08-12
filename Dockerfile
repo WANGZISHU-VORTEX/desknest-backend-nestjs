@@ -1,13 +1,13 @@
-FROM node:24 AS builder
+FROM node:22 AS builder
 
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
-COPY .env.example .env
+COPY .env.default .env
 RUN npm run build
 
-FROM node:24 AS production
+FROM node:22 AS production
 
 WORKDIR /app
 COPY --from=builder /app/dist /app/dist
