@@ -1,0 +1,18 @@
+services:
+  dbn:
+    image: desknest-backend-nestjs:latest
+    container_name: desknest-backend-nestjs
+    ports:
+      - '3000:3000'
+    environment:
+      - DB_TYPE=postgres
+      - DB_HOST=192.168.100.9
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=DeskNest@2025!
+      - DB_DATABASE=desknest_db
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000/health']
+      interval: 30s
+      timeout: 10s
+      retries: 5
